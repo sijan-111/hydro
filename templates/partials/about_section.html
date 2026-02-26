@@ -1,0 +1,48 @@
+<!-- About Start -->
+<div class="container-xxl py-5">
+  <div class="container">
+    <div class="row g-5 align-items-center">
+
+      <!-- Image Section -->
+      <div class="col-lg-6">
+        {% if about_images %}
+        <div class="position-relative overflow-hidden rounded shadow-lg">
+          <img
+            src="{{ about_images.0.image.url }}"
+            class="img-fluid w-100"
+            style="height: 450px; object-fit: cover;"
+            alt="About Image"
+          >
+        </div>
+        {% endif %}
+      </div>
+
+      <!-- Content Section -->
+      <div class="col-lg-6">
+        <p class="fw-medium text-uppercase text-primary mb-2">About Us</p>
+        <h1 class="display-6 mb-4">{{ about_info.heading }}</h1>
+        <p class="mb-4 text-muted">{{ about_info.description }}</p>
+
+        <!-- Experience + Features -->
+        <div class="d-flex gap-4 align-items-start">
+          <div class="bg-primary text-center text-white rounded p-4" style="min-width: 140px;">
+            <h1 class="display-4 mb-0">{{ about_info.years_experience }}</h1>
+            <small>Years Experience</small>
+          </div>
+
+          <div>
+            {% for feature in about_info.features %}
+              <p class="mb-2">
+                <i class="fa fa-check text-primary me-2"></i>{{ feature }}
+              </p>
+            {% endfor %}
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</div>
+<!-- About End -->
+

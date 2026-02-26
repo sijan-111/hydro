@@ -1,0 +1,173 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Home - Hydropower{% endblock %}
+
+{% block content %}
+<!-- Carousel Start -->
+<div class="container-fluid px-0 mb-5">
+  <div id="header-carousel" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-inner">
+      {% for item in carousel_items %}
+      <div class="carousel-item {% if forloop.first %}active{% endif %}">
+        <img
+          class="w-100 d-block"
+          src="{{ item.image.url }}"
+          alt="Image"
+          style="height: 600px; object-fit: cover; width: 100%;"
+          loading="lazy"
+        >
+        <div class="carousel-caption">
+          <div class="container">
+            <div class="row justify-content-center">
+              <div class="col-lg-10 text-start">
+                <p class="fs-5 fw-medium text-primary text-uppercase animated slideInRight">{{ item.subtitle }}</p>
+                <h1 class="display-1 text-white mb-5 animated slideInRight">{{ item.title }}</h1>
+                {% if item.button_text %}
+                <a href="{{ item.button_link }}" class="btn btn-primary py-3 px-5 animated slideInRight">{{ item.button_text }}</a>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#header-carousel" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#header-carousel" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+</div>
+<!-- Carousel End -->
+
+<!-- About Section -->
+{% include "partials/about_section.html" %}
+
+<!-- Facts Section -->
+{% include "partials/facts_section.html" %}
+
+<!-- Features Section (kept inline as it's unique to home) -->
+<div class="container-xxl py-5">
+  <div class="container">
+    <div class="row g-5 align-items-center">
+<div class="col-lg-6">
+  <div class="position-relative me-lg-4" style="height: 300px; max-height: 100%;">
+    <div class="overflow-hidden rounded shadow-sm w-100 h-100">
+      <img
+        src="{{ feature_img.image.url }}"
+        class="img-fluid w-100 h-100 object-fit-cover"
+        alt="Feature Image"
+      >
+    </div>
+  </div>
+</div>
+      <div class="col-lg-6">
+        <p class="fw-medium text-uppercase text-primary mb-2">Why Choose Us!</p>
+        <h1 class="display-5 mb-4">A Few Reasons Why People Choose Us!</h1>
+        <p class="mb-4">{{ feature_section.description }}</p>
+        <div class="row gy-4">
+          {% for feat in features %}
+          <div class="col-12">
+            <div class="d-flex">
+              <div class="flex-shrink-0 btn-lg-square rounded-circle bg-primary">
+                <i class="fa {{ feat.icon_class }} text-white"></i>
+              </div>
+              <div class="ms-4">
+                <h4>{{ feat.title }}</h4>
+                <span>{{ feat.description }}</span>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Features End -->
+
+<!-- Services Section -->
+{% include "partials/services_section.html" %}
+
+<!-- Projects Section -->
+<div class="container-fluid bg-dark pt-5 my-5 px-0">
+  <div class="text-center mx-auto mt-5 wow fadeIn" data-wow-delay="0.1s" style="max-width: 600px;">
+    <p class="fw-medium text-uppercase text-primary mb-2">Our Projects</p>
+    <h1 class="display-5 text-white mb-5">See What We Have Completed Recently</h1>
+  </div>
+  <div class="owl-carousel project-carousel wow fadeIn" data-wow-delay="0.1s">
+    {% for proj in projects %}
+    <a class="project-item" href="{{ proj.link|default:'#' }}">
+      <img 
+        class="img-fluid" 
+        src="{{ proj.image.url }}" 
+        alt="" 
+        style="height: 220px; width: 100%; object-fit: cover;"
+      >
+      <div class="project-title">
+        <h5 class="text-primary mb-0">{{ proj.title }}</h5>
+      </div>
+    </a>
+    {% endfor %}
+  </div>
+</div>
+<!-- Projects End -->
+
+<!-- Team Section -->
+{% include "partials/team_section.html" %}
+
+<!-- Testimonials Section -->
+{% include "partials/testimonials_section.html" %}
+
+<!-- Clients Section -->
+<div class="container-xxl py-5">
+  <div class="container text-center">
+    <p class="fw-medium text-uppercase text-primary mb-2">Our Clients & Partners</p>
+    <h1 class="display-5 mb-5">Trusted By</h1>
+    <div class="row g-4 justify-content-center align-items-center">
+      {% for client in clients %}
+      <div class="col-6 col-md-3 d-flex justify-content-center align-items-center">
+        {% if client.website %}
+          <a href="{{ client.website }}" target="_blank" rel="noopener" class="d-block" style="max-height: 100px; max-width: 180px;">
+            <img 
+              src="{{ client.logo.url }}" 
+              alt="{{ client.name }}" 
+              class="img-fluid grayscale-hover" 
+              style="max-height: 100px; width: auto;"
+              loading="lazy"
+            >
+          </a>
+        {% else %}
+          <div style="max-height: 100px; max-width: 180px;">
+            <img 
+              src="{{ client.logo.url }}" 
+              alt="{{ client.name }}" 
+              class="img-fluid grayscale-hover" 
+              style="max-height: 100px; width: auto;"
+              loading="lazy"
+            >
+          </div>
+        {% endif %}
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+<!-- Clients End -->
+
+<style>
+  .grayscale-hover {
+    filter: grayscale(100%);
+    transition: filter 0.3s ease;
+  }
+  .grayscale-hover:hover {
+    filter: grayscale(0%);
+  }
+</style>
+
+{% endblock %}
